@@ -18,6 +18,6 @@ vec2 uv = gl_FragCoord.xy / viewportSize;
 	if (i == maxIteration) {
 		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	} else {
-		gl_FragColor = vec4(i / maxIteration, 1.0, 1.0, 1.0);
+		gl_FragColor = vec4(0.0, 0.0, log(i * 5) / 5, 1.0);
 	}
 }
