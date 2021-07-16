@@ -1,8 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+constexpr float GOLDEN_RATIO{ 1.618f };
 constexpr unsigned int XDIM{ 500 };
 constexpr unsigned int YDIM{ 500 };
+constexpr float ESCAPE_RADIUS{ 2.0f };
+const sf::Vector2f C = sf::Vector2f{ 1.0f - GOLDEN_RATIO, 0.0f };
 
 int main() {
 	if (!sf::Shader::isAvailable()) {
@@ -19,9 +22,15 @@ int main() {
 	sf::Sprite sprite{ texture };
 
 	sf::Shader fragmentShader;
+	
 	if (!fragmentShader.loadFromFile("src/shaders/julia_shader.frag", sf::Shader::Fragment)) {
-		
+
 	}
+
+	fragmentShader.setUniform("R", ESCAPE_RADIUS);
+	fragmentShader.setUniform("viewportSize", sf::Vector2f{ static_cast<float>(XDIM), static_cast<float>(YDIM) });
+	fragmentShader.setUniform("c", C);
+	fragmentShader.setUniform("maxIteration", 1000);
 
 	while (window.isOpen()) {
 		window.clear();
