@@ -3,10 +3,12 @@ uniform float R;
 uniform vec2 c;
 uniform vec2 viewportSize;
 uniform int maxIteration;
+uniform float zoom;
+uniform vec2 position;
 
 void main() {
 vec2 uv = gl_FragCoord.xy / viewportSize;
-	vec2 z = vec2((uv.x - 0.5) * 2 * R, (uv.y - 0.5) * 2 * R);
+	vec2 z = vec2((uv.x + position.x) * 2 * R * zoom, (uv.y + position.y) * 2 * zoom * R);
 	int i = 0;
 	while (length(z) < R && i < maxIteration) {
 		float xtemp = z.x * z.x - z.y * z.y;
