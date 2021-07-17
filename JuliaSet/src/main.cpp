@@ -18,13 +18,13 @@ int main() {
 	if (!fragmentShader->loadFromFile("src/shaders/julia_shader.frag", sf::Shader::Fragment)) {
 
 	}
+	UIManager ui{ XDIM, YDIM, fragmentShader };
 
 	fragmentShader->setUniform("R", ESCAPE_RADIUS);
-	fragmentShader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(XDIM), static_cast<float>(YDIM) });
+	fragmentShader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
 	fragmentShader->setUniform("c", C);
 	fragmentShader->setUniform("maxIteration", 1000);
 
-	UIManager ui{ XDIM, YDIM, fragmentShader };
 
 	while (ui.isOpen()) {
 		ui.update();

@@ -1,11 +1,22 @@
 #include "UIManager.h"
 
-UIManager::UIManager(unsigned int x, unsigned int y, sf::Shader* s) : isPanning{ false }, xDim { x }, yDim{ y }, shader{ s }, zoom{ 1.0f }, position{ -0.5f, -0.5f } {
+UIManager::UIManager(sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ -0.5f, -0.5f } {
 	shader->setUniform("zoom", zoom);
 	shader->setUniform("position", position);
-	window.create(sf::VideoMode{ xDim, yDim }, "Julia Set", sf::Style::Close);
+	window.create(sf::VideoMode::getFullscreenModes()[0], "Julia Set", sf::Style::Fullscreen);
 	window.setFramerateLimit(0);
-	if (!texture.create(xDim, yDim)) {
+	if (!texture.create(window.getSize().x, window.getSize().y)) {
+		// failed to create texture
+	}
+	sprite = sf::Sprite{ texture };
+}
+
+UIManager::UIManager(unsigned int x, unsigned int y, sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ -0.5f, -0.5f } {
+	shader->setUniform("zoom", zoom);
+	shader->setUniform("position", position);
+	window.create(sf::VideoMode{ x, y}, "Julia Set", sf::Style::Close);
+	window.setFramerateLimit(0);
+	if (!texture.create(window.getSize().x, window.getSize().y)) {
 		// failed to create texture
 	}
 	sprite = sf::Sprite{ texture };
@@ -43,9 +54,11 @@ void UIManager::pollEvents() {
 				window.close();
 			} break;
 			case sf::Event::MouseWheelScrolled: {
-				sf::Vector2i{ sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y };
+				sf::Vector2f deltaPos{ sf::Vector2f{ sf::Mouse::getPosition(window) } - 0.5f * sf::Vector2f{ window.getSize() } };
+				sf::Vector2f windowSize{ window.getSize() };
 				zoom /= std::powf(1.25, e.mouseWheelScroll.delta);
 				shader->setUniform("zoom", zoom);
+				shader->setUniform("position", position);
 			} break;
 			case sf::Event::KeyPressed: {
 				switch (e.key.code) {
@@ -70,4 +83,8 @@ void UIManager::pollEvents() {
 
 bool UIManager::isOpen() {
 	return window.isOpen();
+}
+
+sf::Vector2u UIManager::getWindowSize() {
+	return window.getSize();
 }
