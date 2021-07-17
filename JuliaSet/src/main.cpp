@@ -13,24 +13,32 @@ int main() {
 		return -1;
 	}
 	
-	sf::Shader* fragmentShader{ new sf::Shader };
-	
-	if (!fragmentShader->loadFromFile("src/shaders/julia_shader.frag", sf::Shader::Fragment)) {
-
+	sf::Shader* julia_shader{ new sf::Shader };
+	if (!julia_shader->loadFromFile("src/shaders/julia_shader.frag", sf::Shader::Fragment)) {
+		return -1;
 	}
-	UIManager ui{ XDIM, YDIM, fragmentShader };
 
-	fragmentShader->setUniform("R", ESCAPE_RADIUS);
-	fragmentShader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
-	fragmentShader->setUniform("c", C);
-	fragmentShader->setUniform("maxIteration", 1000);
+	sf::Shader* mandelbrot_shader{ new sf::Shader };
+	if (!mandelbrot_shader->loadFromFile("src/shaders/mandelbrot_shader.frag", sf::Shader::Fragment)) {
+		return -1;
+	}
+
+	UIManager ui{ XDIM, YDIM, mandelbrot_shader };
+
+	mandelbrot_shader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
+	mandelbrot_shader->setUniform("maxIteration", 1000);
+
+	julia_shader->setUniform("R", ESCAPE_RADIUS);
+	julia_shader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
+	julia_shader->setUniform("c", C);
+	julia_shader->setUniform("maxIteration", 1000);
 
 
 	while (ui.isOpen()) {
 		ui.update();
 		ui.pollEvents();
 		//C.y += 0.00001f;
-		fragmentShader->setUniform("c", C);
+		julia_shader->setUniform("c", C);
 	}
 	return 0;
 }
