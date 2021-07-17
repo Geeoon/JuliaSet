@@ -22,7 +22,7 @@ vec2 uv = gl_FragCoord.xy / viewportSize;
 		vec2 color = vec2(pow(1.085, i) - 1.0, log((i + 0.2) * 5.0) / 10.0 + 1.0);
 		color.x /= length(color);
 		color.y /= length(color);
-		//color.y *= 0.0;  // makes it look like a black hole.
+		color.y *= 0.0;  // makes it look like a black hole.
 		color.y *= 0.5;
 		gl_FragColor = vec4(color.x, 0.0, color.y, 1.0);
 	}

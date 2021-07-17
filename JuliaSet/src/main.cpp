@@ -25,11 +25,11 @@ int main() {
 
 	UIManager ui{ XDIM, YDIM, mandelbrot_shader };
 
-	mandelbrot_shader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
+	mandelbrot_shader->setUniform("viewportSize", sf::Vector2f{ ui.getWindowSize() });
 	mandelbrot_shader->setUniform("maxIteration", 1000);
 
 	julia_shader->setUniform("R", ESCAPE_RADIUS);
-	julia_shader->setUniform("viewportSize", sf::Vector2f{ static_cast<float>(ui.getWindowSize().x), static_cast<float>(ui.getWindowSize().y) });
+	julia_shader->setUniform("viewportSize", sf::Vector2f{ ui.getWindowSize() });
 	julia_shader->setUniform("c", C);
 	julia_shader->setUniform("maxIteration", 1000);
 

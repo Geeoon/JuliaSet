@@ -4,7 +4,7 @@ UIManager::UIManager(sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0
 	shader->setUniform("zoom", zoom);
 	shader->setUniform("position", position);
 	window.create(sf::VideoMode::getFullscreenModes()[0], "Julia Set", sf::Style::Fullscreen);
-	window.setFramerateLimit(0);
+	window.setFramerateLimit(60);
 	if (!texture.create(window.getSize().x, window.getSize().y)) {
 		// failed to create texture
 	}
@@ -15,7 +15,7 @@ UIManager::UIManager(unsigned int x, unsigned int y, sf::Shader* s) : isPanning{
 	shader->setUniform("zoom", zoom);
 	shader->setUniform("position", position);
 	window.create(sf::VideoMode{ x, y}, "Julia Set", sf::Style::Close);
-	window.setFramerateLimit(0);
+	window.setFramerateLimit(60);
 	if (!texture.create(window.getSize().x, window.getSize().y)) {
 		// failed to create texture
 	}
