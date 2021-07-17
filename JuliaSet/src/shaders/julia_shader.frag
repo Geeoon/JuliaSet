@@ -8,7 +8,7 @@ uniform vec2 position;
 
 void main() {
 vec2 uv = gl_FragCoord.xy / viewportSize;
-	vec2 z = vec2((uv.x + position.x) * 2 * R * zoom, (uv.y + position.y) * 2 * zoom * R);
+	vec2 z = vec2((uv.x + position.x) * 2.0 * R * zoom, (uv.y + position.y) * 2.0 * zoom * R);
 	int i = 0;
 	while (length(z) < R && i < maxIteration) {
 		float xtemp = z.x * z.x - z.y * z.y;
@@ -20,6 +20,6 @@ vec2 uv = gl_FragCoord.xy / viewportSize;
 	if (i == maxIteration) {
 		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	} else {
-		gl_FragColor = vec4(0.0, 0.0, log(i * 5) / 5, 1.0);
+		gl_FragColor = vec4(0.0, 0.0, log(i * 5.0) / 5.0, 1.0);
 	}
 }
