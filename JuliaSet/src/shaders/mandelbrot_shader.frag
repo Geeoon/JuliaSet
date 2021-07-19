@@ -5,8 +5,8 @@ uniform float zoom;
 uniform vec2 position;
 
 void main() {
-vec2 uv = gl_FragCoord.xy / viewportSize;
-	vec2 z0 = vec2((uv.x + position.x) * 2.0 * zoom, (uv.y + position.y) * 2.0 * zoom);
+	vec2 uv = gl_FragCoord.xy / viewportSize;
+	vec2 z0 = ((uv + vec2(-0.5, -0.5)) * zoom + position) * 2.0;
 	vec2 z = vec2(0.0, 0.0);
 	int i = 0;
 	while (length(z) < 2.0 && i < maxIteration) {

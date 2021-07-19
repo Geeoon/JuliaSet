@@ -45,7 +45,7 @@ void UIManager::pollEvents() {
 					sf::Vector2f windowSize{ window.getSize() };
 					deltaMouse.x /= -windowSize.x;
 					deltaMouse.y /= windowSize.y;
-					position += deltaMouse;
+					position += deltaMouse * zoom;
 					mousePosition = sf::Mouse::getPosition(window);
 					shader->setUniform("position", position);
 				}
@@ -54,11 +54,8 @@ void UIManager::pollEvents() {
 				window.close();
 			} break;
 			case sf::Event::MouseWheelScrolled: {
-				sf::Vector2f deltaPos{ sf::Vector2f{ sf::Mouse::getPosition(window) } - 0.5f * sf::Vector2f{ window.getSize() } };
-				sf::Vector2f windowSize{ window.getSize() };
 				zoom /= std::powf(1.25, e.mouseWheelScroll.delta);
 				shader->setUniform("zoom", zoom);
-				shader->setUniform("position", position);
 			} break;
 			case sf::Event::KeyPressed: {
 				switch (e.key.code) {

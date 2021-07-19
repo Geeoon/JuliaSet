@@ -7,8 +7,8 @@ uniform float zoom;
 uniform vec2 position;
 
 void main() {
-vec2 uv = gl_FragCoord.xy / viewportSize;
-	vec2 z = vec2((uv.x + position.x) * 2.0 * R * zoom, (uv.y + position.y) * 2.0 * zoom * R);
+	vec2 uv = gl_FragCoord.xy / viewportSize;
+	vec2 z = ((uv + vec2(-0.5, -0.5)) * zoom + position) * 2.0 * R;
 	int i = 0;
 	while (length(z) < R && i < maxIteration) {
 		float xtemp = z.x * z.x - z.y * z.y;
