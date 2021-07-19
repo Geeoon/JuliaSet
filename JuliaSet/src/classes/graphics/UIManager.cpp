@@ -1,6 +1,6 @@
 #include "UIManager.h"
 
-UIManager::UIManager(sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ -0.5f, -0.5f } {
+UIManager::UIManager(sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ 0.0f, 0.0f } {
 	shader->setUniform("zoom", zoom);
 	shader->setUniform("position", position);
 	window.create(sf::VideoMode::getFullscreenModes()[0], "Julia Set", sf::Style::Fullscreen);
@@ -11,7 +11,7 @@ UIManager::UIManager(sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0
 	sprite = sf::Sprite{ texture };
 }
 
-UIManager::UIManager(unsigned int x, unsigned int y, sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ -0.5f, -0.5f } {
+UIManager::UIManager(unsigned int x, unsigned int y, sf::Shader* s) : isPanning{ false }, shader{ s }, zoom{ 1.0f }, position{ 0.0f, 0.0f } {
 	shader->setUniform("zoom", zoom);
 	shader->setUniform("position", position);
 	window.create(sf::VideoMode{ x, y}, "Julia Set", sf::Style::Close);
