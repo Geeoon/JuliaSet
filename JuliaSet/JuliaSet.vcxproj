@@ -147,8 +147,8 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\julia_shader.frag" />
-    <None Include="src\shaders\mandelbrot_shader.frag" />
+    <None Include="src\shaders\julia.frag" />
+    <None Include="src\shaders\mandelbrot.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\classes\graphics\UIManager.h" />
