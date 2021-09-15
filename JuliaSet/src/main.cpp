@@ -24,7 +24,7 @@ int main() {
 		return -1;
 	}
 
-	UIManager ui{ XDIM, YDIM, julia};
+	UIManager ui{ XDIM, YDIM, mandelbrot};
 
 	mandelbrot->setUniform("viewportSize", sf::Vector2f{ ui.getWindowSize() });
 	mandelbrot->setUniform("maxIteration", MAX_ITERATIONS);
